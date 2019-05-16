@@ -1,0 +1,20 @@
+export default class SceneScript extends Laya.Script3D{
+    private box:Laya.MeshSprite3D;
+    constructor(){
+        super();
+    }
+     /**
+     * 复写3D对象组件被激活后执行，此时所有节点和组件均已创建完毕，次方法只执行一次
+     */
+    public onAwake():void{
+        this.box = this.owner as Laya.MeshSprite3D;
+    }
+    //物体必须拥有碰撞组件（Collider）
+    public onMouseDown():void{
+        console.log("点到我了");
+        this.box.removeSelf();
+    }
+    public onCollisionEnter(conllision):void{
+        (this.box.meshRenderer.sharedMaterial as Laya.BlinnPhongMaterial).albedoColor = new Laya.Vector4(1,0,0,0.01);
+    }
+}
